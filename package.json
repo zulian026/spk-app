@@ -30,7 +30,7 @@
     "recharts": "^2.15.3",
     "shadcn": "^2.6.1",
     "tailwind-merge": "^3.3.0",
-    "zod": "^3.25.56"
+    "zod": "^3.25.58"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
