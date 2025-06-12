@@ -38,9 +38,55 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
 
+    // Filter out fields that don't exist in the laptops table
+    const allowedFields = [
+      "name",
+      "brand",
+      "price",
+      "processor",
+      "processor_score",
+      "ram",
+      "storage",
+      "storage_type",
+      "graphics_card",
+      "graphics_type",
+      "screen_size",
+      "screen_resolution",
+      "screen_type",
+      "weight",
+      "thickness",
+      "battery_capacity",
+      "battery_life",
+      "operating_system",
+      "wifi_standard",
+      "bluetooth_version",
+      "usb_ports",
+      "has_hdmi",
+      "has_usb_c",
+      "image_url",
+      "description",
+      "availability_status",
+    ];
+
+    // Filter body to only include allowed fields
+    const filteredBody = Object.keys(body)
+      .filter((key) => allowedFields.includes(key))
+      .reduce((obj, key) => {
+        obj[key] = body[key];
+        return obj;
+      }, {} as any);
+
+    // Check if there are any valid fields to update
+    if (Object.keys(filteredBody).length === 0) {
+      return NextResponse.json(
+        { error: "No valid fields to update" },
+        { status: 400 }
+      );
+    }
+
     const { data, error } = await supabase
       .from("laptops")
-      .update(body)
+      .update(filteredBody)
       .eq("id", id)
       .select()
       .single();
