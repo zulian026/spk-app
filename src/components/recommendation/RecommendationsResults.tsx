@@ -24,7 +24,9 @@ export default function RecommendationsResults({
   recommendations,
   laptops,
 }: RecommendationsResultsProps) {
-  const getLaptopDetails = (laptopId: string): LaptopWithDetails | undefined => {
+  const getLaptopDetails = (
+    laptopId: string
+  ): LaptopWithDetails | undefined => {
     return laptops.find((laptop) => laptop.id === laptopId);
   };
 
@@ -47,7 +49,8 @@ export default function RecommendationsResults({
           <div className="text-center py-8 text-gray-500">
             <Monitor className="h-12 w-12 mx-auto mb-4 opacity-50" />
             <p>
-              Belum ada rekomendasi. Atur preferensi Anda dan klik "Dapatkan Rekomendasi"
+              Belum ada rekomendasi. Atur preferensi Anda dan klik "Dapatkan
+              Rekomendasi"
             </p>
           </div>
         ) : (

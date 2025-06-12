@@ -1,17 +1,8 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Star,
-  Cpu,
-  HardDrive,
-  Weight,
-  Monitor,
-} from "lucide-react";
+import { Star, Cpu, HardDrive, Weight, Monitor } from "lucide-react";
 import { LaptopWithDetails } from "@/types/recommendation";
 import { TOPSISResult } from "@/lib/topsis";
 
@@ -20,7 +11,10 @@ interface LaptopCardProps {
   recommendation: TOPSISResult;
 }
 
-export default function LaptopCard({ laptop, recommendation }: LaptopCardProps) {
+export default function LaptopCard({
+  laptop,
+  recommendation,
+}: LaptopCardProps) {
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -35,12 +29,8 @@ export default function LaptopCard({ laptop, recommendation }: LaptopCardProps) 
         <div className="flex justify-between items-start mb-3">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <Badge variant="secondary">
-                #{recommendation.rank_position}
-              </Badge>
-              <h3 className="font-semibold text-lg">
-                {laptop.name}
-              </h3>
+              <Badge variant="secondary">#{recommendation.rank_position}</Badge>
+              <h3 className="font-semibold text-lg">{laptop.name}</h3>
               <Badge variant="outline">{laptop.brand}</Badge>
             </div>
             <p className="text-2xl font-bold text-green-600 mb-2">
@@ -51,9 +41,7 @@ export default function LaptopCard({ laptop, recommendation }: LaptopCardProps) 
             <div className="text-2xl font-bold text-blue-600 mb-1">
               {(recommendation.topsis_score * 100).toFixed(1)}%
             </div>
-            <div className="text-sm text-gray-500">
-              Skor TOPSIS
-            </div>
+            <div className="text-sm text-gray-500">Skor TOPSIS</div>
             {laptop.avg_rating && laptop.avg_rating > 0 && (
               <div className="flex items-center gap-1 mt-1">
                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -68,15 +56,11 @@ export default function LaptopCard({ laptop, recommendation }: LaptopCardProps) 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-3">
           <div className="flex items-center gap-2">
             <Cpu className="h-4 w-4 text-gray-500" />
-            <span className="text-sm">
-              Skor: {laptop.processor_score}
-            </span>
+            <span className="text-sm">Skor: {laptop.processor_score}</span>
           </div>
           <div className="flex items-center gap-2">
             <Monitor className="h-4 w-4 text-gray-500" />
-            <span className="text-sm">
-              {laptop.ram}GB RAM
-            </span>
+            <span className="text-sm">{laptop.ram}GB RAM</span>
           </div>
           <div className="flex items-center gap-2">
             <HardDrive className="h-4 w-4 text-gray-500" />
@@ -95,7 +79,8 @@ export default function LaptopCard({ laptop, recommendation }: LaptopCardProps) 
             <strong>Grafis:</strong> {laptop.graphics_card}
           </div>
           <div>
-            <strong>Layar:</strong> {laptop.screen_size}" {laptop.screen_resolution}
+            <strong>Layar:</strong> {laptop.screen_size}"{" "}
+            {laptop.screen_resolution}
           </div>
           {laptop.battery_life && (
             <div>
