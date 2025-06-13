@@ -859,12 +859,12 @@ export default function RecommendationPage() {
                                 src={recommendation.laptop.image_url}
                                 alt={recommendation.laptop.name}
                                 className="w-full h-full object-cover"
-                                onError={(e) => {
-                                  // Fallback ke icon jika gambar gagal dimuat
-                                  e.currentTarget.style.display = "none";
-                                  e.currentTarget.nextElementSibling.style.display =
-                                    "flex";
-                                }}
+                                // onError={(e) => {
+                                //   // Fallback ke icon jika gambar gagal dimuat
+                                //   e.currentTarget.style.display = "none";
+                                //   e.currentTarget.nextElementSibling.style.display =
+                                //     "flex";
+                                // }}
                               />
                             ) : null}
                             <div
