@@ -88,7 +88,6 @@ export default function HomePage() {
                     Cari Laptop
                   </Link>
                   <div className="flex items-center space-x-2">
-                    <span className="text-gray-700">Halo, {user.email}</span>
                     <button
                       onClick={signOut}
                       className="text-gray-600 hover:text-gray-800 px-3 py-1 rounded-md hover:bg-gray-100 transition-colors"

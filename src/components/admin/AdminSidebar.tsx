@@ -15,6 +15,7 @@ import {
   LogOut,
   Shield,
   Laptop,
+  Folder,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -29,6 +30,19 @@ const AdminSidebar = ({ sidebarOpen, setSidebarOpen }: AdminSidebarProps) => {
   const menuItems = [
     { id: "dashboard", name: "Dashboard", icon: Home, href: "/admin" },
     { id: "laptop", name: "Laptop", icon: Laptop, href: "/admin/laptops" },
+    {
+      id: "category",
+      name: "Categories",
+      icon: Folder,
+      href: "/admin/categories",
+    },
+    {
+      id: "brands",
+      name: "Users",
+      icon: Users,
+      href: "/admin/brands",
+    },
+
     // {
     //   id: "analytics",
     //   name: "Analytics",
