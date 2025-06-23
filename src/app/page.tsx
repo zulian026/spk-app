@@ -154,54 +154,6 @@ export default function HomePage() {
         <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-pink-200 rounded-full opacity-20 animate-pulse delay-2000"></div>
       </section>
 
-      {/* Categories Section */}
-      <section className="py-16 px-4 bg-white/50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">
-              Kategori Laptop
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Pilih kategori yang sesuai dengan kebutuhan Anda
-            </p>
-          </div>
-
-          {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="animate-pulse">
-                  <div className="bg-gray-200 rounded-xl h-32"></div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {categories.map((category) => (
-                <Link
-                  key={category.id}
-                  href={`/laptops?category=${category.name.toLowerCase()}`}
-                  className="group"
-                >
-                  <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1 border border-gray-100">
-                    <div className="text-center">
-                      <div className="text-3xl mb-3">
-                        {getCategoryIcon(category.icon)}
-                      </div>
-                      <h3 className="font-semibold text-gray-800 group-hover:text-blue-600 transition-colors">
-                        {category.name}
-                      </h3>
-                      <p className="text-sm text-gray-500 mt-1">
-                        {category.description}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* How It Works */}
       <section className="py-16 px-4 bg-gradient-to-r from-blue-50 to-purple-50">
         <div className="max-w-7xl mx-auto">
