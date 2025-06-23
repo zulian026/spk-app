@@ -62,3 +62,19 @@ export const SCREEN_SIZE_OPTIONS = [
   { value: "medium", label: 'Standard (14-15")' },
   { value: "large", label: 'Large (≥16")' },
 ];
+
+export interface PreferencesFormProps {
+  preferences: UserPreferences;
+  setPreferences: (preferences: UserPreferences) => void;
+  isLoading: boolean;
+  onGenerateRecommendations: () => Promise<void>;
+  onReset: () => void; // Add this line
+  showResults: boolean;
+}
+
+export interface RecommendationResultsProps {
+  showResults: boolean;
+  recommendations: Recommendation[];
+  preferences: UserPreferences;
+  isLoading: boolean; // Add this line
+}

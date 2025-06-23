@@ -28,12 +28,14 @@ interface RecommendationResultsProps {
   recommendations: Recommendation[];
   preferences: UserPreferences;
   showResults: boolean;
+  isLoading: boolean; // Tambahkan baris ini
 }
 
 export default function RecommendationResults({
   recommendations,
   preferences,
   showResults,
+  isLoading,
 }: RecommendationResultsProps) {
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat("id-ID", {
@@ -56,6 +58,24 @@ export default function RecommendationResults({
     if (rank === 3) return "bg-amber-600 text-white";
     return "bg-blue-500 text-white";
   };
+
+  // Tambahkan ini setelah function formatCurrency dan sebelum if (!showResults)
+  if (isLoading) {
+    return (
+      <Card className="h-96 flex items-center justify-center">
+        <CardContent className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <h3 className="text-lg font-semibold text-gray-600 mb-2">
+            Mencari Rekomendasi...
+          </h3>
+          <p className="text-gray-500">
+            Sedang menghitung skor TOPSIS untuk laptop yang sesuai dengan
+            preferensi Anda.
+          </p>
+        </CardContent>
+      </Card>
+    );
+  }
 
   if (!showResults) {
     return (

@@ -43,11 +43,14 @@ import {
   SCREEN_SIZE_OPTIONS,
 } from "./types";
 
+// Updated interface to match what the parent component is passing
 interface PreferencesFormProps {
   preferences: UserPreferences;
   setPreferences: (preferences: UserPreferences) => void;
-  onGenerateRecommendations: () => void;
+  onGenerateRecommendations: () => Promise<void>; // Changed to Promise<void>
   isLoading: boolean;
+  onReset: () => void; // Added this prop
+  showResults: boolean; // Added this prop
 }
 
 export default function PreferencesForm({
@@ -55,6 +58,8 @@ export default function PreferencesForm({
   setPreferences,
   onGenerateRecommendations,
   isLoading,
+  onReset, // Now accepting onReset from parent
+  showResults, // Now accepting showResults from parent
 }: PreferencesFormProps) {
   const handleWeightChange = (criterionKey: string, value: number[]) => {
     const newWeight = value[0] / 100;
@@ -143,21 +148,8 @@ export default function PreferencesForm({
     }
   };
 
-  const resetPreferences = () => {
-    setPreferences({
-      price_weight: 0.25,
-      performance_weight: 0.2,
-      ram_weight: 0.15,
-      storage_weight: 0.15,
-      weight_importance: 0.15,
-      battery_weight: 0.1,
-      max_budget: 25000000,
-      min_budget: 5000000,
-      preferred_brands: [],
-      primary_usage: "office",
-      screen_size_preference: "medium",
-    });
-  };
+  // Remove the local resetPreferences function since we're using onReset from parent
+  // const resetPreferences = () => { ... }
 
   const formatToRupiah = (value: number) =>
     new Intl.NumberFormat("id-ID", {
@@ -192,46 +184,61 @@ export default function PreferencesForm({
           Sesuaikan bobot kriteria sesuai prioritas Anda
         </CardDescription>
       </CardHeader>
-      
+
       {/* Scrollable Content */}
       <CardContent className="flex-1 overflow-y-auto space-y-6 pb-4">
         {/* Total Weight Visualization */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Label className="text-sm font-medium">Total Bobot Kriteria</Label>
-            <span className={`text-sm font-bold ${
-              isWeightValid ? 'text-green-600' : isWeightOver ? 'text-red-600' : 'text-orange-600'
-            }`}>
+            <span
+              className={`text-sm font-bold ${
+                isWeightValid
+                  ? "text-green-600"
+                  : isWeightOver
+                  ? "text-red-600"
+                  : "text-orange-600"
+              }`}
+            >
               {totalWeightPercentage.toFixed(1)}%
             </span>
           </div>
-          
-          <Progress 
-            value={Math.min(totalWeightPercentage, 100)} 
-            className={`h-3 ${
-              isWeightOver ? 'bg-red-100' : 'bg-gray-200'
-            }`}
+
+          <Progress
+            value={Math.min(totalWeightPercentage, 100)}
+            className={`h-3 ${isWeightOver ? "bg-red-100" : "bg-gray-200"}`}
           />
-          
+
           {/* Weight Status Alert */}
           {!isWeightValid && (
-            <Alert className={`${
-              isWeightOver ? 'border-red-200 bg-red-50' : 'border-orange-200 bg-orange-50'
-            }`}>
-              <AlertTriangle className={`h-4 w-4 ${
-                isWeightOver ? 'text-red-600' : 'text-orange-600'
-              }`} />
-              <AlertDescription className={`text-sm ${
-                isWeightOver ? 'text-red-800' : 'text-orange-800'
-              }`}>
-                {isWeightOver 
-                  ? `Total bobot melebihi 100% (${totalWeightPercentage.toFixed(1)}%). Bobot akan dinormalisasi secara otomatis.`
-                  : `Total bobot kurang dari 100% (${totalWeightPercentage.toFixed(1)}%). Sesuaikan bobot untuk hasil optimal.`
-                }
+            <Alert
+              className={`${
+                isWeightOver
+                  ? "border-red-200 bg-red-50"
+                  : "border-orange-200 bg-orange-50"
+              }`}
+            >
+              <AlertTriangle
+                className={`h-4 w-4 ${
+                  isWeightOver ? "text-red-600" : "text-orange-600"
+                }`}
+              />
+              <AlertDescription
+                className={`text-sm ${
+                  isWeightOver ? "text-red-800" : "text-orange-800"
+                }`}
+              >
+                {isWeightOver
+                  ? `Total bobot melebihi 100% (${totalWeightPercentage.toFixed(
+                      1
+                    )}%). Bobot akan dinormalisasi secara otomatis.`
+                  : `Total bobot kurang dari 100% (${totalWeightPercentage.toFixed(
+                      1
+                    )}%). Sesuaikan bobot untuk hasil optimal.`}
               </AlertDescription>
             </Alert>
           )}
-          
+
           {isWeightValid && (
             <Alert className="border-green-200 bg-green-50">
               <CheckCircle className="h-4 w-4 text-green-600" />
@@ -535,7 +542,7 @@ export default function PreferencesForm({
         </Button>
 
         <Button
-          onClick={resetPreferences}
+          onClick={onReset} // Now using onReset from parent instead of local resetPreferences
           variant="outline"
           className="w-full"
         >
