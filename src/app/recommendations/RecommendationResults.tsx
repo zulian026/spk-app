@@ -332,7 +332,7 @@ export default function RecommendationResults({
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-3 mt-4">
+                  {/* <div className="flex gap-3 mt-4">
                     <Button className="flex-1" size="sm">
                       Lihat Detail
                     </Button>
@@ -340,7 +340,7 @@ export default function RecommendationResults({
                     <Button variant="outline" size="sm">
                       Simpan
                     </Button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </CardContent>
